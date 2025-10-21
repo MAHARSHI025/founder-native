@@ -3,7 +3,6 @@ import { Button, View, Alert, Platform } from "react-native";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 
-// Handle how notifications behave when received
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -19,7 +18,6 @@ export default function Profile() {
     registerForPushNotificationsAsync();
   }, []);
 
-  // Ask for permission to show notifications
   async function registerForPushNotificationsAsync() {
     if (Device.isDevice) {
       const { status: existingStatus } =
@@ -59,17 +57,6 @@ export default function Profile() {
       trigger: null, // Show immediately
     });
   };
-
-  // Or schedule a notification after 5 seconds (example)
-//   const sendDelayedNotification = async () => {
-//     await Notifications.scheduleNotificationAsync({
-//       content: {
-//         title: "⏰ Reminder!",
-//         body: "This notification appears after 5 seconds.",
-//       },
-//       trigger: { seconds: 5 },
-//     });
-//   };
 
   return (
     <View

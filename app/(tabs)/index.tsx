@@ -11,7 +11,10 @@ export default function HomeScreen() {
   return (
     <>
       <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-        <Text style={{ color: 'white', fontSize: 50,  fontFamily:'MozillaHeadline-Regular'}}>FOUNDER</Text>
+        <Image source={require('@/assets/images/final.png')}
+          style={{ width: 100, height: 100 }}
+          contentFit="contain" />
+        <Text style={{ color: 'white', fontSize: 50, fontFamily: 'MozillaHeadline-Regular' }}>FOUNDER</Text>
       </View>
     </>
   );

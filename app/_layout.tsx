@@ -1,59 +1,69 @@
-import React, { useEffect, useCallback, useState } from "react";
-import { View, ActivityIndicator } from "react-native";
-import * as SplashScreen from "expo-splash-screen";
-import * as Font from "expo-font";
-import { ThemeProvider } from "@react-navigation/native";
-import { DarkTheme, DefaultTheme } from "@react-navigation/native";
+import React, { useMemo } from "react";
+import { View } from "react-native";
+import { ThemeProvider, DarkTheme as NavigationDarkTheme, DefaultTheme as NavigationDefaultTheme } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useColorScheme } from "react-native"; // detects system theme
+import { Colors, Fonts } from "@/constants/theme"; // your theme file path
 
-// 👇 Keep the splash visible until we manually hide it
-SplashScreen.preventAutoHideAsync();
+import { useFonts } from "expo-font";
+
+
 
 export default function RootLayout() {
-  const [appIsReady, setAppIsReady] = useState(false);
-  const colorScheme = "light";
-
-  useEffect(() => {
-    async function prepare() {
-      try {
-        // Load fonts or any async tasks here
-        await Font.loadAsync({
-          "MozillaHeadline-Regular": require("../assets/fonts/MozillaHeadline-Regular.ttf"),
-        });
-
-        // You can simulate loading with a delay (optional)
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        // 👇 Tell the app that loading is complete
-        setAppIsReady(true);
-      }
-    }
-
-    prepare();
-  }, []);
-
-  // 👇 Callback when layout is ready (ensures splash hides smoothly)
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      await SplashScreen.hideAsync();
-    }
-  }, [appIsReady]);
-
-  if (!appIsReady) {
-    return null; // Keep splash visible (don’t render UI)
+  const colorScheme = useColorScheme() ?? "light";
+  
+  const [fontsLoaded] = useFonts({
+    "MozillaHeadline-Regular": require("../assets/fonts/MozillaHeadline-Regular.ttf"),
+    "MozillaHeadline-Bold": require("../assets/fonts/MozillaHeadline-Bold.ttf"),
+  });
+  
+  if (!fontsLoaded) {
+    return null; // or a splash/loading screen
   }
 
+  const CustomTheme = useMemo(
+    () => ({
+      dark: colorScheme === "dark",
+      colors: {
+        ...(colorScheme === "dark"
+          ? NavigationDarkTheme.colors
+          : NavigationDefaultTheme.colors),
+        ...Colors[colorScheme],
+      },
+      fonts: {
+        regular: {
+          fontFamily: Fonts.sans,
+          fontWeight: "normal" as const,
+        },
+        medium: {
+          fontFamily: Fonts.serif,
+          fontWeight: "500" as const,
+        },
+        bold: {
+          fontFamily: Fonts.rounded,
+          fontWeight: "bold" as const,
+        },
+        heavy: {
+          fontFamily: Fonts.mono,
+          fontWeight: "900" as const,
+        },
+      },
+    }),
+    [colorScheme]
+  );
+
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <ThemeProvider value={colorScheme === "light" ? DarkTheme : DefaultTheme}>
+    <View style={{ flex: 1 }}>
+      <ThemeProvider value={CustomTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: "modal", title: "Modal" }} />
+          <Stack.Screen
+            name="modal"
+            options={{ presentation: "modal", title: "Modal" }}
+          />
         </Stack>
-        <StatusBar style="auto" />
+        <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
       </ThemeProvider>
     </View>
   );
