@@ -1,20 +1,13 @@
 import { Image } from 'expo-image';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
 
 export default function HomeScreen() {
   return (
     <>
       <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-        <Image source={require('@/assets/images/final.png')}
-          style={{ width: 100, height: 100 }}
-          contentFit="contain" />
-        <Text style={{ color: 'white', fontSize: 50, fontFamily: 'MozillaHeadline-Regular' }}>FOUNDER</Text>
+        <Text style={{ color: 'white', fontSize: 60, fontFamily: 'MozillaHeadline-bold' }}>FOUNDER</Text>
+        <Text style={{ color: 'white', fontSize: 20, fontFamily: 'MozillaHeadline-Regular' }}>for B-to-B connection</Text>
       </View>
     </>
   );

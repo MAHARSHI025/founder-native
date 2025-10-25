@@ -21,7 +21,7 @@ export default function Market() {
               receiver_email: "sal@gmail.com",
             }
           );
-          console.log(response);
+          // console.log(response);
           
           setData(response.data.data);
         } catch (error) {

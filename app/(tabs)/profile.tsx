@@ -1,77 +1,33 @@
-import React, { useEffect } from "react";
-import { Button, View, Alert, Platform } from "react-native";
-import * as Notifications from "expo-notifications";
-import * as Device from "expo-device";
+import LoginScreen from "@/components/login-screen";
+import { AuthContext } from "@/context/userContext";
+import React, { useContext } from "react";
+import { ActivityIndicator, Text, View } from "react-native";
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-    shouldShowBanner: true,
-    shouldShowList: true,
-  }),
-});
+const ProfileTab: React.FC = () => {
+  const { userToken, user, loading }:any = useContext(AuthContext);
 
-export default function Profile() {
-  useEffect(() => {
-    registerForPushNotificationsAsync();
-  }, []);
-
-  async function registerForPushNotificationsAsync() {
-    if (Device.isDevice) {
-      const { status: existingStatus } =
-        await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-
-      if (existingStatus !== "granted") {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-      }
-
-      if (finalStatus !== "granted") {
-        Alert.alert(
-          "Permission required",
-          "Enable notifications to receive alerts!"
-        );
-        return;
-      }
-
-      console.log("Notification permissions granted ✅");
-    } else {
-      Alert.alert(
-        "Physical device required",
-        "Notifications only work on a real device"
-      );
-    }
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#007AFF" />
+      </View>
+    );
   }
 
-  // Send a notification immediately
-  const sendNotification = async () => {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "🚀 Hello from Expo!",
-        body: "This is a local notification 🎉",
-        sound: true,
-      },
-      trigger: null, // Show immediately
-    });
-  };
+  if (!userToken) {
+    console.log('hello');
+    
+    return <LoginScreen />;
+  }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        gap: 12,
-      }}
-    >
-      <Button title="Send Notification Now" onPress={sendNotification} />
-      {/* <Button
-        title="Send Notification After 5s"
-        onPress={sendDelayedNotification}
-      /> */}
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", gap: 12 }}>
+      <Text style={{ fontSize: 22, fontWeight: "600" }}>
+        Welcome, {user?.name || "User"} 👋
+      </Text>
+      <Text style={{ color: "gray" }}>{user?.email}</Text>
     </View>
   );
-}
+};
+
+export default ProfileTab;
