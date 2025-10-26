@@ -12,7 +12,7 @@ export default function LoginScreen() {
 
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
-    const { login, logout } = useContext(AuthContext);
+    const { login, logout, user, userToken } = useContext(AuthContext);
 
     const handleLogin = async () => {
         try {
@@ -20,16 +20,18 @@ export default function LoginScreen() {
                 "https://founder-weld.vercel.app/api/user/login",
                 { email, password: pass }
             );
+            
 
-            const { _id, organization_name } = response.data;
+            const { _id, organization_name } = response.data.user;
 
             if (!_id || !organization_name) {
-                return Alert.alert(email || "Login failed");
+                return Alert.alert("Login failed");
             }
 
             await login(_id, { email, organization_name });
 
             Alert.alert("Login successful!");
+
         } catch (err: any) {
             console.error(err);
             Alert.alert(err.response?.data?.message || "Login failed");

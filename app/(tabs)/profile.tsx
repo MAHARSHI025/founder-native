@@ -1,10 +1,10 @@
 import LoginScreen from "@/components/login-screen";
 import { AuthContext } from "@/context/userContext";
 import React, { useContext } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, Button, Text, View } from "react-native";
 
 const ProfileTab: React.FC = () => {
-  const { userToken, user, loading }:any = useContext(AuthContext);
+  const { userToken, user, loading, logout }:any = useContext(AuthContext);
 
   if (loading) {
     return (
@@ -20,12 +20,15 @@ const ProfileTab: React.FC = () => {
     return <LoginScreen />;
   }
 
+  
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center", gap: 12 }}>
-      <Text style={{ fontSize: 22, fontWeight: "600" }}>
-        Welcome, {user?.name || "User"} 👋
+      <Text style={{ fontSize: 22, fontWeight: "600", color:'white' }}>
+        Welcome, {user?.organization_name || "User"} 👋
       </Text>
       <Text style={{ color: "gray" }}>{user?.email}</Text>
+      <Button title="Logout" color={'red'} onPress={logout}></Button>
     </View>
   );
 };
