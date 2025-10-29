@@ -7,7 +7,9 @@ import { useColorScheme, View } from "react-native";
 
 import { useFonts } from "expo-font";
 import { AuthProvider } from "@/context/userContext";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import Header from "@/components/header";
+
 
 
 
@@ -61,13 +63,13 @@ export default function RootLayout() {
         <ThemeProvider value={CustomTheme}>
           <SafeAreaProvider>
 
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen
-                name="modal"
-                options={{ presentation: "modal", title: "Modal" }}
-              />
-            </Stack>
+              <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="modal"
+                  options={{ presentation: "modal", title: "Modal" }}
+                />
+              </Stack>
           </SafeAreaProvider>
           <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
         </ThemeProvider>

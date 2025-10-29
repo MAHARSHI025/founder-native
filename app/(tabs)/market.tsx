@@ -1,19 +1,19 @@
-import React, { useCallback, useState } from "react";
-import { View, FlatList, Dimensions, Alert } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { View, FlatList, Dimensions, Alert, ScrollView } from "react-native";
 import axios from "axios";
 import { useFocusEffect } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MarketCard from "@/components/MarketCard";
+import Header from "@/components/header";
 
 const { width } = Dimensions.get("window");
-const CARD_WIDTH = width *0.95;
+const CARD_WIDTH = width * 0.95;
 const CARD_SPACING = (width - CARD_WIDTH) / 2;
 
 export default function Market() {
   const [data, setData] = useState<any[]>([]);
 
-  useFocusEffect(
-    useCallback(() => {
+    useEffect(() => {
       const fetchData = async () => {
         try {
           const response = await axios.post(
@@ -28,21 +28,21 @@ export default function Market() {
       };
       fetchData();
     }, [])
-  );
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
-      <FlatList
-        data={data}
-        keyExtractor={(item, i) => i.toString()}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        snapToAlignment="start"
-        decelerationRate="fast"
-        snapToInterval={CARD_WIDTH + 20} // card width + margin
-        contentContainerStyle={{ paddingHorizontal: CARD_SPACING }}
-        renderItem={({ item }) => <MarketCard data={item} />}
-      />
-    </SafeAreaView>
+    <>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView
+          style={{ padding: 10 }}
+        >
+          <>
+            <Header />
+            {data.map((item,i) =>
+              <MarketCard data={item} key={i} />
+            )}
+          </>
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
 }
