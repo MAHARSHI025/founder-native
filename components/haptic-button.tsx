@@ -4,8 +4,8 @@ import * as Haptics from "expo-haptics";
 
 export default function HapticButton({ color = "#000", text = "Click", onPress }: any) {
   const handlePress = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft); 
-    if (onPress) onPress(); 
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+    if (onPress) onPress();
   };
 
   return (
@@ -18,6 +18,11 @@ export default function HapticButton({ color = "#000", text = "Click", onPress }
         borderRadius: 10,
         alignItems: "center",
         justifyContent: "center",
+        shadowOpacity: 1,
+        shadowOffset: { height: 3, width: 3 },
+        shadowRadius: 0,
+        borderStyle: 'solid',
+        borderWidth: 1,
       }}
     >
       <Text style={{ fontWeight: "600", fontSize: 16 }}>

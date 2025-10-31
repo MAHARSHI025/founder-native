@@ -8,12 +8,13 @@ import { useFonts } from "expo-font";
 import { AuthProvider } from "@/context/userContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import CustomSplashScreen from "@/components/splash-screen";
+import Toast from 'react-native-toast-message'
 
 // ✅ Prevent auto hide at app start
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme() ?? "light";
+  const colorScheme = "light";
 
   // ✅ Load fonts before hiding splash
   const [fontsLoaded] = useFonts({
@@ -26,30 +27,24 @@ export default function RootLayout() {
   useEffect(() => {
     async function prepare() {
       if (fontsLoaded) {
-        // ✅ Only hide native splash once fonts are ready
         await SplashScreen.hideAsync();
       }
     }
     prepare();
   }, [fontsLoaded]);
 
-  // ✅ Wait here — don't show custom splash until fonts ready
   if (!fontsLoaded) return null;
 
-  // ✅ Now show your Custom React Splash
   if (showCustomSplash) {
     return <CustomSplashScreen onFinish={() => setShowCustomSplash(false)} />;
   }
 
-  // ✅ Theme setup
   const CustomTheme = useMemo(
     () => ({
-      dark: colorScheme === "dark",
+      dark: false, // ✅ FORCE LIGHT MODE
       colors: {
-        ...(colorScheme === "dark"
-          ? NavigationDarkTheme.colors
-          : NavigationDefaultTheme.colors),
-        ...Colors[colorScheme],
+        ...NavigationDefaultTheme.colors,
+        ...Colors.light, // ✅ use your custom light palette
       },
       fonts: {
         regular: { fontFamily: Fonts.sans, fontWeight: "normal" as const },
@@ -58,8 +53,9 @@ export default function RootLayout() {
         heavy: { fontFamily: Fonts.mono, fontWeight: "900" as const },
       },
     }),
-    [colorScheme]
+    []
   );
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -67,11 +63,12 @@ export default function RootLayout() {
         <ThemeProvider value={CustomTheme}>
           <SafeAreaProvider>
             <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="modal" options={{ presentation: "modal", title: "Modal" }} />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: 'simple_push' }} />
+              <Stack.Screen name="login" options={{ presentation: "modal", headerShown: false }} />
             </Stack>
+            <Toast />
           </SafeAreaProvider>
-          <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+          <StatusBar style={colorScheme === "light" ? "light" : "dark"} />
         </ThemeProvider>
       </AuthProvider>
     </View>
