@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, View, Alert, Platform, TextInput, Text, TouchableOpacity } from "react-native";
-import * as Notifications from "expo-notifications";
-import * as Device from "expo-device";
 import { ThemedText } from "@/components/themed-text";
 import axios from "axios";
 import { AuthContext } from "@/context/userContext";

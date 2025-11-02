@@ -1,11 +1,14 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
 
-function Header({component}:any) {
+function Header({ component, text }: any) {
   return (
     <>
-    <Text style={{ padding:10, fontSize:30, color:'black', fontWeight:700, fontFamily: 'MozillaHeadline-bold'}}>Founder</Text>
-      {component}
+      <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center',padding: 10,}}>
+
+        <Text style={{  fontSize: 30, color: 'black', fontWeight: 700, fontFamily: 'MozillaHeadline-bold'}}>{text}</Text>
+        {component}
+      </View>
     </>
   )
 }

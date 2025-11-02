@@ -61,14 +61,16 @@ export default function RootLayout() {
     <View style={{ flex: 1 }}>
       <AuthProvider>
         <ThemeProvider value={CustomTheme}>
-          <SafeAreaProvider>
+          <SafeAreaProvider >
             <Stack>
               <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: 'simple_push' }} />
               <Stack.Screen name="login" options={{ presentation: "modal", headerShown: false }} />
+              <Stack.Screen name="contact" options={{ presentation: "card", headerShown: true, title:'Contacts', headerBackTitle:'Back' }} />
+              <Stack.Screen name="chat" options={{ animation:'simple_push', headerShown: false  }} />
             </Stack>
             <Toast />
           </SafeAreaProvider>
-          <StatusBar style={colorScheme === "light" ? "light" : "dark"} />
+          <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
         </ThemeProvider>
       </AuthProvider>
     </View>
