@@ -5,7 +5,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import axios from "axios";
 import { useFocusEffect, useRouter } from "expo-router";
 import React, { useCallback, useContext, useState } from "react";
-import { ActivityIndicator, Button, Pressable, Text, View } from "react-native";
+import { ActivityIndicator, Button, Image, ImageBackground, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const ProfileTab: React.FC = () => {
@@ -57,10 +57,51 @@ const ProfileTab: React.FC = () => {
         </Pressable>
       } />
 
+      <View style={{ padding: 10 }}>
+        <Image
+          source={{ uri: data?.coverimage }}
+          style={{ width: '100%', height: 200, borderRadius: 10 }}
+        />
 
-      <MarketCard data={data} />
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: -20, marginLeft: 10, gap:10 }}>
+          <Image
+            source={{ uri: data?.profileimage }}
+            style={{ width: 80, height: 80, borderRadius: 50, borderWidth: 1, borderColor: 'gray' }}
+          />
 
-    </SafeAreaView>
+          <View style={{ marginLeft: 10 }}>
+            <Text style={{ fontSize: 22, fontWeight: '600' }}>{data?.organization_name}</Text>
+            <Text style={{ fontSize: 12 }}>{data?.email}</Text>
+          </View>
+          <Pressable style={{ backgroundColor: '#ff5757ff', borderRadius: 20, padding: 5, flexDirection: 'column', shadowOpacity: 1, shadowOffset: { height: 2, width: 2 }, shadowRadius: 0, borderStyle: 'solid', borderWidth: 1, }} >
+            <MaterialIcons name="edit" size={18} color={'white'} />
+          </Pressable>
+        </View>
+
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 15, marginLeft: 10 }}>
+          {data?.badges?.map((b: string) => (
+            <View key={b} style={{ paddingHorizontal: 12, paddingVertical: 6, backgroundColor: '#eee', borderRadius: 20, marginRight: 8, marginBottom: 8 }}>
+              <Text style={{ fontSize: 14 }}>{b}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View style={{marginTop:10 , marginLeft: 10}}>
+          <Text style={{fontWeight:'600'}}>About</Text>
+          <Text>{data?.about}</Text>
+        </View>
+        <View style={{marginTop:10 , marginLeft: 10}}>
+          <Text style={{fontWeight:'600'}}>Bio</Text>
+          <Text>{data?.bio}</Text>
+        </View>
+        <View style={{marginTop:10 , marginLeft: 10}}>
+          <Text style={{fontWeight:'600'}}>Description</Text>
+          <Text>{data?.description}</Text>
+        </View>
+      </View>
+
+
+    </SafeAreaView >
   );
 };
 

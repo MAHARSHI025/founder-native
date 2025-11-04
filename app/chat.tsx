@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView, Platform, Image, Pressable } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { AuthContext } from "@/context/userContext"; // ← replace with your auth context
+import { AuthContext } from "@/context/userContext";
 import io from "socket.io-client";
 import { SafeAreaView } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -9,7 +9,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 export default function ChatScreen() {
     const { userToken, user, logout }: any = useContext(AuthContext);
 
-    const { user: receiver } = useLocalSearchParams(); // string
+    const { user: receiver } = useLocalSearchParams(); 
     const receiverData = JSON.parse(receiver as string);
 
     const [message, setMessage] = useState<any>();

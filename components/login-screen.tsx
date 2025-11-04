@@ -5,10 +5,11 @@ import axios from "axios";
 import { AuthContext } from "@/context/userContext";
 import { useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
+import GoogleLogin from "./google-login";
 
 
 
-export default function LoginScreen({setAction}:any) {
+export default function LoginScreen({ setAction }: any) {
 
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
@@ -31,12 +32,12 @@ export default function LoginScreen({setAction}:any) {
 
             await login(_id, { email, organization_name });
             console.log('ppppppppppp');
-            
+
 
             Toast.show({
-                type:'success',
-                text1:'Login sucessfully',
-                text2:'Please do some work'
+                type: 'success',
+                text1: 'Login sucessfully',
+                text2: 'Please do some work'
             })
 
         } catch (err: any) {
@@ -49,7 +50,7 @@ export default function LoginScreen({setAction}:any) {
         <>
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center", gap: 12, display: 'flex' }}>
 
-                <Text style={{ fontSize: 50, color: 'black', marginBottom: 30, fontWeight: '700' ,fontFamily: 'MozillaHeadline-bold' }}>Login</Text>
+                <Text style={{ fontSize: 50, color: 'black', marginBottom: 30, fontWeight: '700', fontFamily: 'MozillaHeadline-bold' }}>Login</Text>
 
                 <TextInput placeholderTextColor={'#888888ff'} value={email} onChangeText={(text) => setEmail(text)} keyboardAppearance="light" keyboardType="email-address" placeholder="Email" style={{
                     color: 'black', borderColor: 'black', borderStyle: 'solid', borderWidth: 1, padding: 10, width: '70%', borderRadius: 10, fontSize: 18, shadowOpacity: 1,
@@ -57,7 +58,7 @@ export default function LoginScreen({setAction}:any) {
                     shadowRadius: 0,
                     backgroundColor: 'white'
                 }} />
-                <TextInput placeholderTextColor={'#888888ff'} value={pass} onChangeText={(text) => setPass(text)} secureTextEntry  keyboardAppearance="light" keyboardType="visible-password"  placeholder="Password" style={{
+                <TextInput placeholderTextColor={'#888888ff'} value={pass} onChangeText={(text) => setPass(text)} secureTextEntry keyboardAppearance="light" keyboardType="visible-password" placeholder="Password" style={{
                     color: 'black', borderColor: 'black', borderStyle: 'solid', borderWidth: 1, padding: 10, width: '70%', borderRadius: 10, fontSize: 18, shadowOpacity: 1,
                     shadowOffset: { height: 2, width: 2 },
                     shadowRadius: 0,
@@ -96,13 +97,13 @@ export default function LoginScreen({setAction}:any) {
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}
-                    onPress={()=>setAction('signup')}
+                    onPress={() => setAction('signup')}
                 >
-                    <Text style={{ color: "black"}}>
+                    <Text style={{ color: "black" }}>
                         Dont have a account ?  Signup
                     </Text>
                 </TouchableOpacity>
-
+                {/* <GoogleLogin /> */}
             </View>
         </>
     );
