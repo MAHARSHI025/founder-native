@@ -5,11 +5,12 @@ import { AuthContext } from "@/context/userContext";
 import io from "socket.io-client";
 import { SafeAreaView } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import LoadingScreen from "@/components/loading-screen";
 
 export default function ChatScreen() {
     const { userToken, user, logout }: any = useContext(AuthContext);
 
-    const { user: receiver } = useLocalSearchParams(); 
+    const { user: receiver } = useLocalSearchParams();
     const receiverData = JSON.parse(receiver as string);
 
     const [message, setMessage] = useState<any>();
@@ -56,7 +57,6 @@ export default function ChatScreen() {
                 if (data?.data) {
                     setChat(data.data.reverse());
 
-                    // ✅ Scroll to bottom after messages load
                     setTimeout(() => {
                         flatListRef.current?.scrollToEnd({ animated: false });
                     }, 100);
@@ -142,37 +142,39 @@ export default function ChatScreen() {
                         </View>
                     </View>
 
-                    {/* Chat Messages */}
-                    <FlatList
-                        ref={flatListRef}
-                        data={chat}
-                        style={{ flex: 1 }}
-                        contentContainerStyle={{ padding: 15 }}
-                        keyExtractor={(_, index) => index.toString()}
-                        onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
-                        onLayout={() => flatListRef.current?.scrollToEnd({ animated: false })}
-                        renderItem={({ item }) => {
-                            const isMe = item.sender_email === sender_email;
-                            return (
-                                <View style={{ marginBottom: 5, alignSelf: isMe ? "flex-end" : "flex-start", maxWidth: "80%" }}>
-                                    <Text style={{ fontSize: 12, marginBottom: 2, textAlign: isMe ? "right" : "left" }}>
-                                        {isMe ? "You" : item.sender_email}
-                                    </Text>
-                                    <View style={{
-                                        backgroundColor: isMe ? "#f0f0f0" : "#E9FFD8",
-                                        padding: 10,
-                                        borderRadius: 8,
-                                        shadowOffset: isMe ? { height: 2, width: 2 } : { height: 2, width: -2 },
-                                        shadowOpacity: 5,
-                                        shadowRadius: 0,
-                                        borderWidth: 1
-                                    }}>
-                                        <Text>{item.message}</Text>
+                    {loading ? <LoadingScreen /> :
+
+                        <FlatList
+                            ref={flatListRef}
+                            data={chat}
+                            style={{ flex: 1 }}
+                            contentContainerStyle={{ padding: 15 }}
+                            keyExtractor={(_, index) => index.toString()}
+                            onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
+                            onLayout={() => flatListRef.current?.scrollToEnd({ animated: false })}
+                            renderItem={({ item }) => {
+                                const isMe = item.sender_email === sender_email;
+                                return (
+                                    <View style={{ marginBottom: 5, alignSelf: isMe ? "flex-end" : "flex-start", maxWidth: "80%" }}>
+                                        <Text style={{ fontSize: 12, marginBottom: 2, textAlign: isMe ? "right" : "left" }}>
+                                            {isMe ? "You" : item.sender_email}
+                                        </Text>
+                                        <View style={{
+                                            backgroundColor: isMe ? "#f0f0f0" : "#E9FFD8",
+                                            padding: 10,
+                                            borderRadius: 8,
+                                            shadowOffset: isMe ? { height: 2, width: 2 } : { height: 2, width: -2 },
+                                            shadowOpacity: 5,
+                                            shadowRadius: 0,
+                                            borderWidth: 1
+                                        }}>
+                                            <Text>{item.message}</Text>
+                                        </View>
                                     </View>
-                                </View>
-                            );
-                        }}
-                    />
+                                );
+                            }}
+                        />
+                    }
 
 
                     <View style={{ flexDirection: "row", padding: 15, borderTopWidth: 1, borderColor: "#ddd" }}>

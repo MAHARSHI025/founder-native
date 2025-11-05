@@ -9,6 +9,7 @@ import { Icon } from "expo-router/unstable-native-tabs";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRouter } from "expo-router";
+import LoadingScreen from "@/components/loading-screen";
 
 export default function Market() {
   const [users, setUsers] = useState<any[]>([]);
@@ -55,14 +56,12 @@ export default function Market() {
 
   const renderFooter = () =>
     loading ? (
-      <View style={{ padding: 15, alignItems: "center" }}>
-        <ActivityIndicator size="large" />
-      </View>
+      <LoadingScreen />
     ) : null;
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Header text={'Founder'} component={<>
+      <Header text={'Market'} component={<>
         <Pressable style={{
           backgroundColor: '#ff5757ff',
           borderRadius: 20,
@@ -74,7 +73,7 @@ export default function Market() {
           borderStyle: 'solid',
           borderWidth: 1,
         }}
-        onPress={()=>router.push('/contact')}
+          onPress={() => router.push('/contact')}
         >
           <MaterialIcons name="people" size={20} color="white" />
         </Pressable>
