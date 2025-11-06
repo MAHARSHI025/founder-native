@@ -60,7 +60,7 @@ export default function Market() {
     ) : null;
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }} >
       <Header text={'Market'} component={<>
         <Pressable style={{
           backgroundColor: '#ff5757ff',
@@ -86,6 +86,7 @@ export default function Market() {
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.5}
         ListFooterComponent={renderFooter}
+        style={{marginBottom:50}}
       />
     </SafeAreaView>
   );

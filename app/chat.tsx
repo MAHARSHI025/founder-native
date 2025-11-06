@@ -3,9 +3,9 @@ import { View, Text, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { AuthContext } from "@/context/userContext";
 import io from "socket.io-client";
-import { SafeAreaView } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import LoadingScreen from "@/components/loading-screen";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ChatScreen() {
     const { userToken, user, logout }: any = useContext(AuthContext);

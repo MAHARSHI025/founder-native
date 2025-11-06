@@ -3,19 +3,17 @@ import LottieView from "lottie-react-native";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/header";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { NumberTicker } from "@/components/number-ticker";
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 export default function HomeScreen() {
 
   const router = useRouter()
   return (
-    <SafeAreaView style={{ gap: 10 }}>
+    <SafeAreaView style={{ gap: 10 }} edges={['top']}>
       <Header component={''} text={'Founder'} />
 
       <ScrollView >
-
-
 
         <View style={{ display: "flex", justifyContent: 'center', alignItems: 'center', padding: 10, gap: 10 }}>
           <View style={{ display: "flex", justifyContent: 'center', alignItems: 'center', flexDirection: 'row', gap: 5 }}>
@@ -94,13 +92,18 @@ export default function HomeScreen() {
           </View>
 
         </ScrollView>
+
         <View style={{
           backgroundColor: 'white',
           alignItems: 'baseline',
-          paddingHorizontal: 20,
-          padding:10
+          paddingHorizontal: 10,
+          padding: 10
         }}>
-          <Text style={{fontSize:50}}>Have a part of it</Text>
+          <Text style={{ fontSize: 30 }}>Want a part of it?</Text>
+          <Pressable onPress={()=>router.push('/market')} style={{display:'flex', backgroundColor:'black', width:'100%', padding:15, borderRadius:15, flexDirection:'row', justifyContent:'center', alignItems:'center', gap:1} }>
+            <Text style={{color:'white', textAlign:'center', fontWeight:'500', alignItems:'center', display:'flex', justifyContent:'center'}}>Explore </Text>
+            <AntDesign name="compass" size={15} color="white" />
+          </Pressable>
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -65,6 +65,7 @@ export default function RootLayout() {
             <Stack>
               <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: 'simple_push' }} />
               <Stack.Screen name="login" options={{ presentation: "modal", headerShown: false }} />
+              <Stack.Screen name="setting" options={{ presentation: "modal", headerShown: false }} />
               <Stack.Screen name="contact" options={{ presentation: "card", headerShown: true, title:'Contacts', headerBackTitle:'Back' }} />
               <Stack.Screen name="chat" options={{ animation:'simple_push', headerShown: false  }} />
             </Stack>

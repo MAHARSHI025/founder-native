@@ -26,7 +26,7 @@ const CustomSplashScreen: React.FC<Props> = ({ onFinish }) => {
             style={styles.animation}
           />
         </View>
-        <Text style={{ fontSize: 60, fontFamily: 'MozillaHeadline-bold' }}>FOUNDER</Text>
+        <Text style={{ fontSize: 60, fontFamily: 'MozillaHeadline-Bold' }}>FOUNDER</Text>
         <Text style={{ fontSize: 20, fontFamily: 'MozillaHeadline-Regular' }}>for B-to-B connection</Text>
       </View>
     </>

@@ -1,4 +1,5 @@
 import Header from "@/components/header";
+import InfoSection from "@/components/info-section";
 import MarketCard from "@/components/MarketCard";
 import { AuthContext } from "@/context/userContext";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -52,7 +53,7 @@ const ProfileTab: React.FC = () => {
           borderStyle: 'solid',
           borderWidth: 1,
         }}
-          onPress={logout}>
+          onPress={()=>router.push('/setting')}>
           <MaterialIcons name="logout" size={20} color={'white'} />
         </Pressable>
       } />
@@ -86,17 +87,14 @@ const ProfileTab: React.FC = () => {
           ))}
         </View>
 
-        <View style={{marginTop:10 , marginLeft: 10}}>
-          <Text style={{fontWeight:'600'}}>About</Text>
-          <Text>{data?.about}</Text>
+        <View style={{marginTop:10 }}>
+          <InfoSection title={'About'} content={data?.about}/>
         </View>
-        <View style={{marginTop:10 , marginLeft: 10}}>
-          <Text style={{fontWeight:'600'}}>Bio</Text>
-          <Text>{data?.bio}</Text>
+        <View style={{marginTop:10 }}>
+          <InfoSection title={'Bio'} content={data?.bio}/>
         </View>
-        <View style={{marginTop:10 , marginLeft: 10}}>
-          <Text style={{fontWeight:'600'}}>Description</Text>
-          <Text>{data?.description}</Text>
+        <View style={{marginTop:10 }}>
+          <InfoSection title={'Description'} content={data?.description}/>
         </View>
       </View>
 
