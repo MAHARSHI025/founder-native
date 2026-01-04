@@ -5,7 +5,7 @@ import { auth } from "@/helper/firebase";
 import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 
 GoogleSignin.configure({
-  webClientId: "YOUR_WEB_CLIENT_ID.apps.googleusercontent.com",
+  webClientId: "1078741769144-ikec7ib70p92auvr00vm35elhtm17k9m.apps.googleusercontent.com",
 });
 
 export default function GoogleLogin() {

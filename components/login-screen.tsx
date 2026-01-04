@@ -50,7 +50,7 @@ export default function LoginScreen({ setAction }: any) {
         <>
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center", gap: 12, display: 'flex' }}>
 
-                <Text style={{ fontSize: 50, color: 'black', marginBottom: 30, fontWeight: '700', fontFamily: 'MozillaHeadline-bold' }}>Login</Text>
+                <Text style={{ fontSize: 50, color: 'black', marginBottom: 30, fontWeight: '700', fontFamily: 'MozillaHeadline-Bold' }}>Login</Text>
 
                 <TextInput placeholderTextColor={'#888888ff'} value={email} onChangeText={(text) => setEmail(text)} keyboardAppearance="light" keyboardType="email-address" placeholder="Email" style={{
                     color: 'black', borderColor: 'black', borderStyle: 'solid', borderWidth: 1, padding: 10, width: '70%', borderRadius: 10, fontSize: 18, shadowOpacity: 1,
@@ -103,7 +103,7 @@ export default function LoginScreen({ setAction }: any) {
                         Dont have a account ?  Signup
                     </Text>
                 </TouchableOpacity>
-                {/* <GoogleLogin /> */}
+                <GoogleLogin/>
             </View>
         </>
     );

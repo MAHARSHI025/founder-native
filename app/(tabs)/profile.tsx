@@ -4,20 +4,19 @@ import MarketCard from "@/components/MarketCard";
 import { AuthContext } from "@/context/userContext";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import axios from "axios";
-import { useFocusEffect, useRouter } from "expo-router";
+import { useFocusEffect, router } from "expo-router";
 import React, { useCallback, useContext, useState } from "react";
 import { ActivityIndicator, Button, Image, ImageBackground, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const ProfileTab: React.FC = () => {
   const { userToken, user, loading, logout }: any = useContext(AuthContext);
-  const router = useRouter();
   const [data, setData] = useState<any>([])
 
   useFocusEffect(
     useCallback(() => {
       if (!loading && !userToken) {
-        router.push("/login");
+        router.replace("/login");
       } else {
         const getData = async () => {
           const response: any = await axios.post('https://founder-weld.vercel.app/api/user/getuser', { email: user?.email })
@@ -53,7 +52,7 @@ const ProfileTab: React.FC = () => {
           borderStyle: 'solid',
           borderWidth: 1,
         }}
-          onPress={()=>router.push('/setting')}>
+          onPress={logout}>
           <MaterialIcons name="logout" size={20} color={'white'} />
         </Pressable>
       } />

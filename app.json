@@ -28,7 +28,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.maharshi025.founder"
     },
     "web": {
       "output": "static",
@@ -39,7 +40,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash.png",
+          "image": "./assets/images/final.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#000000"
